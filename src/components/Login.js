@@ -4,6 +4,7 @@ import { ContainerStyle } from "./styles/Container.style";
 import { ButtonStyle } from "./styles/Button.style";
 import { InputStyle } from "./styles/Container.style";
 import { LabelStyle } from "./styles/Container.style";
+import { NavbarMain } from "./NavbarMain";
 
 export const Login = () => {
   const userRef = useRef();
@@ -25,6 +26,7 @@ export const Login = () => {
 
   return (
     <>
+      <NavbarMain></NavbarMain>
       <ContainerStyle>
         <section>
           <p ref={errRef} className={errMsg ? "errMsg" : "offscreen"}>
@@ -45,7 +47,7 @@ export const Login = () => {
                 reuired
               />
             </section>
-            
+
             <section>
               <LabelStyle htmlFor="password">Password</LabelStyle>
               <InputStyle

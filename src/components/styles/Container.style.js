@@ -5,7 +5,7 @@ export const ContainerStyle = styled.div`
   max-width: 100%;
   padding: auto;
   margin: 100px auto 100px auto;
-  background-color: #fddbbb;
+  background-color: #ffecdc;
   box-sizing: border-box;
   border: 2px groove #808080;
   border-radius: 5px;
