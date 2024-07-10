@@ -6,6 +6,7 @@ import { InputStyle } from "./styles/Container.style";
 import { LabelStyle } from "./styles/Container.style";
 import { NavbarMain } from "./NavbarMain";
 import { HomePage } from "./HomePage";
+import { useNavigate } from "react-router";
 
 export const Login = () => {
   const userRef = useRef();
@@ -16,6 +17,7 @@ export const Login = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState("");
   const [showHome, setShowHome] = useState(false);
+  const history = useNavigate();
 
   //focus on user field when page loads
   useEffect(() => {
@@ -36,12 +38,13 @@ export const Login = () => {
     const getPassword = localStorage.getItem("Password");
 
     if ((username == "") & (password == "")) {
-      alert("wrong");
+      alert("You entered wrong information.");
     } else if ((username == getUser) & (password == getPassword)) {
       alert("Login successful");
       setShowHome(true);
+      history("/homepage");
     } else {
-      alert("Something went wrong.");
+      alert("Something went wrong.Please login again");
     }
   }
 

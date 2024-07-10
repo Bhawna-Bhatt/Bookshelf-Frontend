@@ -12,6 +12,7 @@ import {
   Row,
 } from "reactstrap";
 import { HomeCards } from "./HomeCards";
+import { Link } from "react-router-dom";
 
 export const BookList = () => {
   const [book, setBook] = useState([]);
@@ -62,7 +63,9 @@ export const BookList = () => {
                   }}
                 />
                 <CardBody>
-                  <CardTitle tag="h5">{i.title}</CardTitle>
+                  <Link to={`/books/${i.bookId}`} state={i}>
+                    <CardTitle tag="h5">{i.title}</CardTitle>
+                  </Link>
                   <CardSubtitle className="mb-2 text-muted" tag="h6">
                     {i.price}
                   </CardSubtitle>
@@ -71,7 +74,6 @@ export const BookList = () => {
                     Genre:{i.GenreGenreId}
                     {i.publicationDate}
                   </CardText>
-                  <Button>Book Details</Button>
                 </CardBody>
               </Card>
             ))}

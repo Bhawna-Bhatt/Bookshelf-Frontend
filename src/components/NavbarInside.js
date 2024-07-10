@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LogoImage from "../Logo.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -17,6 +17,7 @@ import {
   Col,
   FormGroup,
   Button,
+  NavbarText,
 } from "reactstrap";
 
 export function NavbarInside(args) {
@@ -89,6 +90,9 @@ export function NavbarInside(args) {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
+            <Link to="/">
+              <NavbarText>Log out</NavbarText>
+            </Link>
           </Collapse>
         </Navbar>
       </div>

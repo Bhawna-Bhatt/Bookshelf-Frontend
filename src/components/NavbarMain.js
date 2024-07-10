@@ -20,7 +20,7 @@ export const NavbarMain = () => {
           </NavItem>
         </Nav>
         <NavItem>
-          <NavLink to="/login">
+          {/* <NavLink to="/">
             <Button
               className="btn btn-lg "
               style={{
@@ -31,7 +31,7 @@ export const NavbarMain = () => {
             >
               <span className="h5">Login</span>
             </Button>
-          </NavLink>
+          </NavLink> */}
         </NavItem>
       </Navbar>
     </>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { NavbarInside } from "./NavbarInside";
 import { Footer } from "./Footer";
 import authorImage from "../images/authorImage.jpeg";
@@ -62,10 +63,11 @@ export const AuthorList = () => {
                   }}
                 />
                 <CardBody>
-                  <CardTitle tag="h5">{i.name}</CardTitle>
+                  <Link to={`/authors/${i.authorId}`} state={i}>
+                    <CardTitle tag="h5">{i.name}</CardTitle>
+                  </Link>
 
                   <CardText>Biography :{i.biography}</CardText>
-                  <Button>Author Details</Button>
                 </CardBody>
               </Card>
             ))}
