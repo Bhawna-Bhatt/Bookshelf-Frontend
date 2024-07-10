@@ -3,7 +3,7 @@ import React from "react";
 export const Footer = () => {
   return (
     <>
-      <footer className="bg-secondary" style={{ height: "100px" }}>
+      <footer className="bg-secondary footer">
         <div className="container text-light text-center">
           <h3 className="mb-3">BookShelf</h3>
           <small className="text-white-75">

@@ -3,7 +3,7 @@ import HomePageImage from "../images/Himage3.webp";
 export const HomeMainContent = () => {
   return (
     <>
-      <div className="container row" style={{ marginTop: 120 }}>
+      <div className="container row" style={{ marginTop: 10 }}>
         <div className="container col-sm mt-5">
           <img src={HomePageImage} alt="SitePhoto"></img>
         </div>

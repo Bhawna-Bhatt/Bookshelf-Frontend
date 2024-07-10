@@ -38,10 +38,10 @@ export const AuthorList = () => {
   return (
     <>
       <NavbarInside></NavbarInside>
-      <div className="container" style={{ height: "80vh" }}>
+      <div className="container">
         <h2 className="h2 text-center mt-4" style={{ color: "#D97448" }}>
           {" "}
-          Here are all the Authors with us !! 
+          Here are all the Authors with us !!
         </h2>
         <div>
           <Row>

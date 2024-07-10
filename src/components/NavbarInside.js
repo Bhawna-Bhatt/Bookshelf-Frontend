@@ -28,7 +28,7 @@ export function NavbarInside(args) {
     <>
       <div>
         <Navbar {...args} color="secondary">
-          <NavLink to="/">
+          <NavLink to="/homepage">
             <img src={LogoImage} className="imageStyle"></img>
           </NavLink>
 
