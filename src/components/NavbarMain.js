@@ -2,38 +2,26 @@ import React from "react";
 import "../../src/App.css";
 import { NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Nav, NavItem, Navbar } from "reactstrap";
-import LogoImage from "../Logo.png";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 export const NavbarMain = () => {
   return (
     <>
-      <Navbar color="secondary" className="mb-5">
-        <Nav justified>
-          <NavItem>
-            <NavLink to="/">
-              <img src={LogoImage} className="imageStyle"></img>
+      <header id="header">
+        <Navbar expand="lg" className="bg-body-tertiary">
+          <Container>
+            <NavLink to="/homepage">
+              <Navbar.Brand href="#home">
+                <i class="bi bi-book-half m-2"></i>
+                BookShelf
+              </Navbar.Brand>
             </NavLink>
-            <NavLink to="/">
-              <span className="fs-4 fw-bold text-dark">BookShelf</span>
-            </NavLink>
-          </NavItem>
-        </Nav>
-        <NavItem>
-          {/* <NavLink to="/">
-            <Button
-              className="btn btn-lg "
-              style={{
-                marginTop: "20px",
-                backgroundColor: "#D97448",
-                color: "black",
-              }}
-            >
-              <span className="h5">Login</span>
-            </Button>
-          </NavLink> */}
-        </NavItem>
-      </Navbar>
+          </Container>
+        </Navbar>
+      </header>
     </>
   );
 };

@@ -10,12 +10,25 @@ import {
   CardSubtitle,
   Button,
   Row,
+  Accordion,
+  AccordionBody,
+  AccordionHeader,
+  AccordionItem,
 } from "reactstrap";
-import { HomeCards } from "./HomeCards";
+
 import { Link } from "react-router-dom";
 
 export const BookList = () => {
   const [book, setBook] = useState([]);
+  const [open, setOpen] = useState("1");
+
+  const toggle = (id) => {
+    if (open === id) {
+      setOpen();
+    } else {
+      setOpen(id);
+    }
+  };
 
   useEffect(() => {
     const getAllBooks = async () => {
@@ -54,26 +67,38 @@ export const BookList = () => {
                 key={i.bookId}
                 className="m-1"
               >
-                <img
-                  alt="Sample"
-                  src={bookCover}
-                  style={{
-                    width: "12rem",
-                    height: "15rem",
-                  }}
-                />
-                <CardBody>
-                  <Link to={`/books/${i.bookId}`} state={i}>
-                    <CardTitle tag="h5">{i.title}</CardTitle>
+                <i class="bi bi-book-half fs-3"></i>
+                <CardBody style={{ background: "#FA5F55" }}>
+                  <Link
+                    to={`/books/${i.bookId}`}
+                    state={i}
+                    style={{ color: "white" }}
+                  >
+                    <CardTitle tag="h5" style={{ color: "white" }}>
+                      {i.title}
+                    </CardTitle>
                   </Link>
-                  <CardSubtitle className="mb-2 text-muted" tag="h6">
-                    {i.price}
-                  </CardSubtitle>
-                  <CardText>
-                    Authorid :{i.AuthorAuthorId}
-                    Genre:{i.GenreGenreId}
-                    {i.publicationDate}
-                  </CardText>
+
+                  <div>
+                    <Accordion open={open} toggle={toggle}>
+                      <AccordionItem>
+                        <AccordionHeader targetId="1">More...</AccordionHeader>
+                        <AccordionBody
+                          accordionId="1"
+                          style={{ background: "#F2D2BD", color: "#E35335" }}
+                        >
+                          Author: {i.AuthorAuthorId}
+                          <br />
+                          Genre : {i.GenreGenreId}
+                          <br />
+                          Price : {i.price}
+                          <br />
+                          Publication Date : {i.publicationDate}
+                          <br />
+                        </AccordionBody>
+                      </AccordionItem>
+                    </Accordion>
+                  </div>
                 </CardBody>
               </Card>
             ))}

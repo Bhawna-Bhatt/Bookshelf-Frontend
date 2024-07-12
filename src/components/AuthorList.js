@@ -11,11 +11,23 @@ import {
   CardSubtitle,
   Button,
   Row,
+  Accordion,
+  AccordionBody,
+  AccordionHeader,
+  AccordionItem,
 } from "reactstrap";
-import { HomeCards } from "./HomeCards";
 
 export const AuthorList = () => {
   const [author, setAuthor] = useState([]);
+  const [open, setOpen] = useState("1");
+
+  const toggle = (id) => {
+    if (open === id) {
+      setOpen();
+    } else {
+      setOpen(id);
+    }
+  };
 
   useEffect(() => {
     const getAllAuthors = async () => {
@@ -49,26 +61,33 @@ export const AuthorList = () => {
             {author.map((i) => (
               <Card
                 style={{
-                  width: "18rem",
+                  width: "16rem",
                 }}
                 key={i.authorId}
-                className="m-1"
+                className="m-4"
               >
-                <img
-                  alt="Sample"
-                  src={authorImage}
-                  style={{
-                    width: "12rem",
-                    height: "15rem",
-                  }}
-                />
+                <i class="bi bi-file-person-fill fs-3"></i>
+
                 <CardBody>
                   <Link to={`/authors/${i.authorId}`} state={i}>
                     <CardTitle tag="h5">{i.name}</CardTitle>
                   </Link>
-
-                  <CardText>Biography :{i.biography}</CardText>
                 </CardBody>
+                <div>
+                  <Accordion open={open} toggle={toggle}>
+                    <AccordionItem>
+                      <AccordionHeader targetId="1">
+                        <b>Biography</b>
+                      </AccordionHeader>
+                      <AccordionBody
+                        accordionId="1"
+                        style={{ color: "#D97448" }}
+                      >
+                        <strong>{i.biography}</strong>
+                      </AccordionBody>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
               </Card>
             ))}
           </Row>
@@ -78,3 +97,5 @@ export const AuthorList = () => {
     </>
   );
 };
+
+//<CardText>Biography :{i.biography}</CardText>

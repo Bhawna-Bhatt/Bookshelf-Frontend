@@ -1,100 +1,49 @@
 import React, { useState } from "react";
-import Pic1 from "../images/Himage3.webp";
-import Pic2 from "../images/home2.jpeg";
-import Pic3 from "../images/homepage.avif";
+import { Carousel, Container, Row, Column } from "react-bootstrap";
+import Pic4 from "../Logo.png";
 
-import {
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators,
-  CarouselCaption,
-} from "reactstrap";
-
-const items = [
-  {
-    id: 1,
-    altText: "Slide 1",
-    caption: "Slide 1",
-  },
-  {
-    id: 2,
-    altText: "Slide 2",
-    caption: "Slide 2",
-  },
-  {
-    id: 3,
-    altText: "Slide 3",
-    caption: "Slide 3",
-  },
-];
-
-export const HomeCarousel = (props) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [animating, setAnimating] = useState(false);
-
-  const next = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-    setActiveIndex(nextIndex);
-  };
-
-  const previous = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-    setActiveIndex(nextIndex);
-  };
-
-  const goToIndex = (newIndex) => {
-    if (animating) return;
-    setActiveIndex(newIndex);
-  };
-
-  const slides = items.map((item) => {
-    return (
-      <CarouselItem
-        className="custom-tag"
-        tag="div"
-        key={item.id}
-        onExiting={() => setAnimating(true)}
-        onExited={() => setAnimating(false)}
-      >
-        <CarouselCaption
-          className="text-danger"
-          captionText={item.caption}
-          captionHeader={item.caption}
-        />
-      </CarouselItem>
-    );
-  });
-
+export const HomeCarousel = () => {
   return (
-    <div>
-      <style>
-        {`.custom-tag {
-              max-width: 100%;
-              height: 200px;
-              background: black;
-            }`}
-      </style>
-      <Carousel activeIndex={activeIndex} next={next} previous={previous}>
-        <CarouselIndicators
-          items={items}
-          activeIndex={activeIndex}
-          onClickHandler={goToIndex}
-        />
-        {slides}
-        <CarouselControl
-          direction="prev"
-          directionText="Previous"
-          onClickHandler={previous}
-        />
-        <CarouselControl
-          direction="next"
-          directionText="Next"
-          onClickHandler={next}
-        />
-      </Carousel>
-    </div>
+    <>
+      <section id="homepage" className="hero-block carousel1">
+        <Carousel className="mt-5">
+          <Carousel.Item>
+            <img
+              classname="d-block w-100"
+              src={Pic4}
+              alt="first slide"
+              style={{ height: "1" }}
+            />
+            <Carousel.Caption>
+              <h1>BookShelf</h1>
+              <h3>
+                Where books find their perfect shelf – "effortlessly organized,
+                endlessly enjoyed."
+              </h3>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img classname="d-block w-100" src={Pic4} alt="second slide" />
+            <Carousel.Caption>
+              <h2>
+                Behind the scenes, we meticulously curate and organize a world
+                of books, ensuring every title finds its place in our seamless
+                inventory management system.
+              </h2>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img classname="d-block w-100" src={Pic4} alt="third slide" />
+
+            <Carousel.Caption>
+              <h2>
+                Join us in fostering a love for literature through efficient
+                cataloging and accessible browsing experiences.
+              </h2>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+      </section>
+    </>
   );
 };

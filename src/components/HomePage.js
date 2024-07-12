@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-
-import { Test } from "../Test";
-import { NavbarMain } from "./NavbarMain";
 import { Footer } from "./Footer";
 import { HomeCarousel } from "./HomeCarousel";
-import { HomeMainContent } from "./HomeMainContent";
-import { HomeCards } from "./HomeCards";
 import { NavbarInside } from "./NavbarInside";
+import { About } from "./About";
 
 export const HomePage = () => {
   const [uname, setUName] = useState();
@@ -18,12 +14,13 @@ export const HomePage = () => {
   return (
     <>
       <NavbarInside></NavbarInside>
-      <h3 className="mt-4" style={{ color: "#D97448" }}>
+      {/* <h3 className="mt-4" style={{ color: "#D97448" }}>
         Welcome ! {uname}
-      </h3>
-      <HomeMainContent></HomeMainContent>
-      <HomeCarousel></HomeCarousel>
-      <HomeCards></HomeCards>
+      </h3> */}
+      <main>
+        <HomeCarousel></HomeCarousel>
+        <About></About>
+      </main>
       <Footer></Footer>
     </>
   );
