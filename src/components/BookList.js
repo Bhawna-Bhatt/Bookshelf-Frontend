@@ -79,7 +79,7 @@ export const BookList = () => {
                     </CardTitle>
                   </Link>
 
-                  <div>
+                  {/* <div>
                     <Accordion open={open} toggle={toggle}>
                       <AccordionItem>
                         <AccordionHeader targetId="1">More...</AccordionHeader>
@@ -98,7 +98,7 @@ export const BookList = () => {
                         </AccordionBody>
                       </AccordionItem>
                     </Accordion>
-                  </div>
+                  </div> */}
                 </CardBody>
               </Card>
             ))}

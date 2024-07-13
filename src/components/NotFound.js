@@ -7,7 +7,7 @@ export const NotFound = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigate("/");
+      navigate("/homepage");
     }, 1000);
   }, []);
 

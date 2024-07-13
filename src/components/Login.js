@@ -50,7 +50,7 @@ export const Login = () => {
       {showHome ? (
         <HomePage name={user} />
       ) : (
-        <Container className="logindiv">
+        <Container className="logindiv fluid">
           <NavbarMain></NavbarMain>
           <div className="login">
             <section>
@@ -71,7 +71,7 @@ export const Login = () => {
                     autoComplete="off"
                     onChange={(e) => setUser(e.target.value)}
                     value={user}
-                    reuired
+                    required
                     placeholder="Username"
                     style={{ margin: "30px 70px 0 70px", width: "70%" }}
                   />
@@ -84,7 +84,7 @@ export const Login = () => {
                     id="password"
                     onChange={(e) => setPwd(e.target.value)}
                     value={pwd}
-                    reuired
+                    required
                     placeholder="Password"
                     style={{ margin: "30px 70px 0 70px", width: "70%" }}
                   />

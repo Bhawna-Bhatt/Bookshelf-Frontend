@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Carousel, Container, Row, Column } from "react-bootstrap";
+import React from "react";
+import { Carousel } from "react-bootstrap";
 import Pic4 from "../Logo.png";
 
 export const HomeCarousel = () => {

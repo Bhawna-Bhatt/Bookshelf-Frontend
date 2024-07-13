@@ -13,9 +13,9 @@ export const NavbarMain = () => {
       <header id="header">
         <Navbar expand="lg" className="bg-body-tertiary">
           <Container>
-            <NavLink to="/homepage">
-              <Navbar.Brand href="#home">
-                <i class="bi bi-book-half m-2"></i>
+            <NavLink to="/login">
+              <Navbar.Brand>
+                <i className="bi bi-book-half m-2"></i>
                 BookShelf
               </Navbar.Brand>
             </NavLink>
