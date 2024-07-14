@@ -24,6 +24,8 @@ export const AddBook = () => {
 
   useEffect(() => {
     const getAllGenres = async () => {
+      console.log("fetching genre");
+
       try {
         const response = await fetch("http://localhost:4000/genres");
 
@@ -38,8 +40,8 @@ export const AddBook = () => {
       } catch (err) {
         console.log("Problem with Fetch operation: ", err);
       }
-      getAllGenres();
     };
+    getAllGenres();
   }, []);
 
   //get authors
@@ -68,8 +70,15 @@ export const AddBook = () => {
   const addBook = () => {
     const url = "http://localhost:4000/books";
     console.log("in addbook handling");
+
+    console.log("genrename from state", genreName);
+    console.log("authorname from state", authorName);
+
+    setGenreGenreId(genreName);
+
+    setAuthorAuthorId(authorName);
+
     //post
-    //console.log(name, biography);
 
     fetch(url, {
       method: "POST",
@@ -84,9 +93,9 @@ export const AddBook = () => {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log("author added");
-        alert("Author added successfully");
-        navigate("/books");
+        console.log("book added");
+        alert("Book added successfully");
+        //navigate("/books");
       })
       .catch((err) => {
         // If the PUT returns an error, ...
@@ -97,7 +106,7 @@ export const AddBook = () => {
   return (
     <>
       <NavbarInside></NavbarInside>
-      <h4 className="mt-5 ms-5 p-5" style={{ color: "#f64b4b" }}>
+      <h4 className="mt-5 ms-5 p-4" style={{ color: "#f64b4b" }}>
         Would you like to add a Book
         <Button
           style={{ background: "#f64b4b", color: "white" }}
@@ -116,12 +125,17 @@ export const AddBook = () => {
           color: "#f64b4b",
           borderWidth: "2px",
         }}
-        className="mt-3"
       >
         <Form className="container mt-2">
           <Form.Group className="mb-3">
             <Form.Label className="fw-bold">Title</Form.Label>
-            <Form.Control type="text" placeholder="Book Name" />
+            <Form.Control
+              type="text"
+              placeholder="Book Name"
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -135,7 +149,9 @@ export const AddBook = () => {
               {" "}
               <option>Please select an author</option>
               {authorList.map((x) => (
-                <option value={x.authorId}>{x.name}</option>
+                <option value={x.authorId} key={x.authorId}>
+                  {x.name}
+                </option>
               ))}
             </Form.Select>
             <Link to="/authors/new">
@@ -154,24 +170,41 @@ export const AddBook = () => {
                 setGenreName(e.target.value);
               }}
             >
-              {" "}
               <option>Please select a genre </option>
               {genreList.map((x) => (
-                <option value={x.genreId}>{x.genreName}</option>
+                <option value={x.genreId} key={x.genreId}>
+                  {x.genreName}
+                </option>
               ))}
             </Form.Select>
+            <Link to="/genres">
+              <p className="mt-2">
+                {" "}
+                Genre not in list? Please click here to add
+              </p>
+            </Link>
           </Form.Group>
-          <Link to="/genres">
-            <p className="mt-2"> Genre not in list? Please click here to add</p>
-          </Link>
+
           <Form.Group className="mb-3">
             <Form.Label className="fw-bold">Publication Date</Form.Label>
-            <Form.Control type="date" placeholder="Author Name" />
+            <Form.Control
+              type="date"
+              placeholder="Publication Date"
+              onChange={(e) => {
+                setPublicationDate(e.target.value);
+              }}
+            />
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label className="fw-bold">Price</Form.Label>
-            <Form.Control type="text" placeholder="Price" />
+            <Form.Control
+              type="text"
+              placeholder="Price"
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
+            />
           </Form.Group>
 
           <Button

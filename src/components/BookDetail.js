@@ -88,7 +88,7 @@ export const BookDetail = () => {
       .then((response) => response.json())
       .then((json) => {
         // If the DELETE is successful, display a message
-        alert("Author deleted");
+        alert("book deleted");
         //navigate("/books");
       })
       .catch((err) => {

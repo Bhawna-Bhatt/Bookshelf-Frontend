@@ -41,7 +41,7 @@ export const AddGenre = () => {
           style={{ background: "#f64b4b", color: "white" }}
           className="btn btn-md ms-2"
           onClick={() => {
-            navigate("/books");
+            navigate("/books/new");
           }}
         >
           back
