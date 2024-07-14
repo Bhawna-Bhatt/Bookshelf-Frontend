@@ -14,7 +14,8 @@ import {
   AccordionBody,
   AccordionHeader,
   AccordionItem,
-} from "reactstrap";
+  Container,
+} from "react-bootstrap";
 
 import { Link } from "react-router-dom";
 
@@ -52,34 +53,34 @@ export const BookList = () => {
   return (
     <>
       <NavbarInside></NavbarInside>
-      <div className="container" style={{ height: "80vh" }}>
-        <h2 className="h2 text-center mt-4" style={{ color: "#D97448" }}>
+      <Container className="mt-4 p-5">
+        <h2 className="h2 text-center p-3" style={{ color: "#f64b4b" }}>
           {" "}
           Here are all the Books in Inventory
         </h2>
-        <div>
-          <Row>
-            {book.map((i) => (
-              <Card
-                style={{
-                  width: "18rem",
-                }}
-                key={i.bookId}
-                className="m-1"
-              >
-                <i class="bi bi-book-half fs-3"></i>
-                <CardBody style={{ background: "#FA5F55" }}>
-                  <Link
-                    to={`/books/${i.bookId}`}
-                    state={i}
-                    style={{ color: "white" }}
-                  >
-                    <CardTitle tag="h5" style={{ color: "white" }}>
-                      {i.title}
-                    </CardTitle>
-                  </Link>
 
-                  {/* <div>
+        <Row>
+          {book.map((i) => (
+            <Card
+              style={{
+                width: "18rem",
+              }}
+              key={i.bookId}
+              className="m-1"
+            >
+              <i className="bi bi-book-half fs-3"></i>
+              <CardBody style={{ background: "#f64b4b" }}>
+                <Link
+                  to={`/books/${i.bookId}`}
+                  state={i}
+                  style={{ color: "white" }}
+                >
+                  <CardTitle tag="h5" style={{ color: "white" }}>
+                    {i.title}
+                  </CardTitle>
+                </Link>
+
+                {/* <div>
                     <Accordion open={open} toggle={toggle}>
                       <AccordionItem>
                         <AccordionHeader targetId="1">More...</AccordionHeader>
@@ -99,13 +100,11 @@ export const BookList = () => {
                       </AccordionItem>
                     </Accordion>
                   </div> */}
-                </CardBody>
-              </Card>
-            ))}
-          </Row>
-        </div>
-      </div>
-      <Footer></Footer>
+              </CardBody>
+            </Card>
+          ))}
+        </Row>
+      </Container>
     </>
   );
 };

@@ -10,6 +10,8 @@ import { BookList } from "./components/BookList.js";
 import { BookDetail } from "./components/BookDetail.js";
 import { AddBook } from "./components/AddBook.js";
 import { AuthorList } from "./components/AuthorList.js";
+import { LoginIndex } from "./indexedDbTrial/loginIdxDb.js";
+import { AddGenre } from "./components/AddGenre.js";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="new" element={<AddAuthor />} />
         </Route>
         <Route path="*" element={<NotFound />} />
+        <Route path="/loginindex" element={<LoginIndex />} />
+        <Route path="/genres" element={<AddGenre />} />
       </Routes>
     </>
   );

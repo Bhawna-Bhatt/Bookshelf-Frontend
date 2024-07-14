@@ -7,6 +7,7 @@ import { Card, CardBody, CardTitle, Row } from "react-bootstrap";
 export const AuthorList = () => {
   const [author, setAuthor] = useState([]);
   const [open, setOpen] = useState("1");
+  const [disableInput, setDisableInput] = useState(true);
 
   const toggle = (id) => {
     if (open === id) {
@@ -39,7 +40,7 @@ export const AuthorList = () => {
     <>
       <NavbarInside></NavbarInside>
       <div className="container">
-        <h2 className="h2 text-center mt-5 pt-5" style={{ color: "#D97448" }}>
+        <h2 className="h2 text-center mt-5 p-4" style={{ color: "#f64b4b" }}>
           {" "}
           Here are all the Authors with us !!
         </h2>
@@ -55,9 +56,15 @@ export const AuthorList = () => {
               >
                 <i className="bi bi-file-person-fill fs-3"></i>
 
-                <CardBody>
-                  <Link to={`/authors/${i.authorId}`} state={i}>
-                    <CardTitle tag="h5">{i.name}</CardTitle>
+                <CardBody style={{ background: "#f64b4b" }}>
+                  <Link
+                    to={`/authors/${i.authorId}`}
+                    state={i}
+                    style={{ color: "white" }}
+                  >
+                    <CardTitle tag="h5" style={{ color: "white" }}>
+                      {i.name}
+                    </CardTitle>
                   </Link>
                 </CardBody>
               </Card>
@@ -65,7 +72,6 @@ export const AuthorList = () => {
           </Row>
         </div>
       </div>
-      <Footer></Footer>
     </>
   );
 };

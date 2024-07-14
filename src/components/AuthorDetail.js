@@ -27,7 +27,7 @@ export const AuthorDetail = () => {
   const saveAuthor = () => {
     const url = "http://localhost:4000/authors/" + author.authorId;
     console.log("in edit handling");
-    //post
+    //put
     //console.log(name, biography);
 
     fetch(url, {
@@ -137,6 +137,15 @@ export const AuthorDetail = () => {
                 />
               </Form.Group>
             </Form>
+            <Button
+              style={{ background: "#f64b4b", color: "white" }}
+              className="btn btn-md mt-2"
+              onClick={() => {
+                navigate("/authors");
+              }}
+            >
+              back
+            </Button>
           </Col>
         </Row>
       </Container>
