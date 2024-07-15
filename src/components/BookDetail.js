@@ -8,6 +8,7 @@ import {
   Button,
   Toast,
   ToastContainer,
+  Modal,
 } from "react-bootstrap";
 import Pic1 from "../images/bookcover.jpeg";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -37,6 +38,10 @@ export const BookDetail = () => {
   const [authorList, setAuthorList] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
 
+  const [showModal, setShowModal] = useState(false);
+  const handleShow = () => setShowModal(true);
+  const handleHide = () => setShowModal(false);
+
   //Get data specific to a book using book id passed from previous page
   //using state of useLocation
 
@@ -44,7 +49,7 @@ export const BookDetail = () => {
     const getBookDetail = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4000/books/bookauthor/" + book.bookId
+          "http://localhost:4000/books/bookauthor/" + book.id
         );
 
         if (!response.ok) {
@@ -59,8 +64,8 @@ export const BookDetail = () => {
         setTitle(data.title);
         setGenreName(data.Genre.genreName);
         setAuthorName(data.Author.name);
-        setGenreGenreId(data.GenreGenreId);
-        setAuthorAuthorId(data.AuthorAuthorId);
+        setGenreGenreId(data.genreId);
+        setAuthorAuthorId(data.authorId);
       } catch (err) {
         console.log("Problem with Fetch operation: ", err);
       }
@@ -127,7 +132,7 @@ export const BookDetail = () => {
   console.log("A", AuthorAuthorId);
 
   const saveBook = () => {
-    const url = "http://localhost:4000/books/" + book.bookId;
+    const url = "http://localhost:4000/books/" + book.id;
     console.log("in edit handling");
 
     setTitle(title);
@@ -137,12 +142,12 @@ export const BookDetail = () => {
     console.log("in save", bookDetail.AuthorAuthorId);
 
     const getGenreId = () => {
-      setGenreGenreId(bookDetail.GenreGenreId);
+      setGenreGenreId(bookDetail.genreId);
       console.log("2", GenreGenreId);
     };
 
     const getAuthorId = () => {
-      setAuthorAuthorId(bookDetail.AuthorAuthorId);
+      setAuthorAuthorId(bookDetail.authorId);
       console.log("2:", AuthorAuthorId);
     };
     getGenreId();
@@ -158,8 +163,8 @@ export const BookDetail = () => {
         title: title,
         price: price,
         publicationDate: publicationDate,
-        GenreGenreId: genreName,
-        AuthorAuthorId: authorName,
+        genreId: GenreGenreId,
+        authorId: AuthorAuthorId,
       }),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     })
@@ -186,7 +191,7 @@ export const BookDetail = () => {
 
   const deleteBook = () => {
     console.log("in delete handle click");
-    const url = "http://localhost:4000/books/" + book.bookId;
+    const url = "http://localhost:4000/books/" + book.id;
     // send DELETE request w/ id as part of URL
     fetch(url, {
       method: "DELETE",
@@ -246,7 +251,7 @@ export const BookDetail = () => {
                         Save
                       </Button>
                     </i>
-                    <i className="bi bi-trash h4 ms-3" onClick={deleteBook}></i>
+                    <i className="bi bi-trash h4 ms-3" onClick={handleShow}></i>
                   </Col>
                 </Form.Group>
                 <Container
@@ -408,11 +413,32 @@ export const BookDetail = () => {
               bg={toastColor}
             >
               <Toast.Header>
-                <strong className="me-auto">Hi There!</strong>
+                <strong className="me-auto">Hello admin!</strong>
               </Toast.Header>
               <Toast.Body>{toastMessage}</Toast.Body>
             </Toast>
           </ToastContainer>
+
+          <div>
+            {/* <Button variant="primary" onClick={handleShow}>
+            Delete
+          </Button> */}
+
+            <Modal show={showModal} onHide={handleHide} className="p-4 mt-5">
+              <Modal.Header closeButton>
+                <Modal.Title className="h6">Confirm Delete</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Are you sure you want to delete it ?</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleHide}>
+                  Cancel
+                </Button>
+                <Button variant="danger" onClick={deleteBook}>
+                  Delete
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
         </Container>
       </>
     </>

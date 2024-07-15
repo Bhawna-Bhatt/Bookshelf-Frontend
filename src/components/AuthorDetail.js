@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Pic1 from "../images/authorImage.jpeg";
-import { Container, Toast, ToastContainer } from "react-bootstrap";
+import { Container, Toast, ToastContainer, Modal } from "react-bootstrap";
 
 export const AuthorDetail = () => {
   const location = useLocation();
@@ -20,6 +20,10 @@ export const AuthorDetail = () => {
   const [toastMessage, setToastMessage] = useState("");
   const [toastColor, setToastColor] = useState("");
 
+  const [showModal, setShowModal] = useState(false);
+  const handleShow = () => setShowModal(true);
+  const handleHide = () => setShowModal(false);
+
   console.log("in component", author);
 
   const editAuthor = () => {
@@ -29,7 +33,7 @@ export const AuthorDetail = () => {
   };
 
   const saveAuthor = () => {
-    const url = "http://localhost:4000/authors/" + author.authorId;
+    const url = "http://localhost:4000/authors/" + author.id;
     console.log("in edit handling");
     //put
     //console.log(name, biography);
@@ -44,7 +48,7 @@ export const AuthorDetail = () => {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log("author edited");
+        console.log("author edited", json);
         setToast(true);
         setToastColor("success");
         setToastMessage("Author details edited successfully.");
@@ -66,7 +70,7 @@ export const AuthorDetail = () => {
 
   const deleteAuthor = () => {
     console.log("in delete handle click");
-    const url = "http://localhost:4000/authors/" + author.authorId;
+    const url = "http://localhost:4000/authors/" + author.id;
 
     // send DELETE request w/ id as part of URL
     fetch(url, {
@@ -128,7 +132,7 @@ export const AuthorDetail = () => {
                       Save
                     </Button>
                   </i>
-                  <i className="bi bi-trash h4 ms-3" onClick={deleteAuthor}></i>
+                  <i className="bi bi-trash h4 ms-3" onClick={handleShow}></i>
                 </Col>
               </Form.Group>
 
@@ -191,11 +195,33 @@ export const AuthorDetail = () => {
             bg={toastColor}
           >
             <Toast.Header>
-              <strong className="me-auto">Hi There!</strong>
+              <strong className="me-auto">Hello admin!</strong>
             </Toast.Header>
             <Toast.Body>{toastMessage}</Toast.Body>
           </Toast>
         </ToastContainer>
+
+        {/* confirmation modal */}
+        <div>
+          {/* <Button variant="primary" onClick={handleShow}>
+            Delete
+          </Button> */}
+
+          <Modal show={showModal} onHide={handleHide} className="p-4 mt-5">
+            <Modal.Header closeButton>
+              <Modal.Title className="h6">Confirm Delete</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Are you sure you want to delete it ?</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleHide}>
+                Cancel
+              </Button>
+              <Button variant="danger" onClick={deleteAuthor}>
+                Delete
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
       </Container>
     </>
   );

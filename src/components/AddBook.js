@@ -78,43 +78,60 @@ export const AddBook = () => {
     console.log("genrename from state", genreName);
     console.log("authorname from state", authorName);
 
-    setGenreGenreId(genreName);
-    console.log(GenreGenreId);
+    const genreElement = genreList.find((i) => i.genreName == genreName);
+    console.log(genreElement);
+    const authorElement = authorList.find((i) => i.name == authorName);
+    console.log(genreElement);
 
-    setAuthorAuthorId(authorName);
-    console.log(AuthorAuthorId);
+    setGenreGenreId(genreList.id);
+    console.log("1", GenreGenreId);
 
-    //post
-    // setTimeout(() => {
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        title: title,
-        price: price,
-        publicationDate: publicationDate,
-        GenreGenreId: genreName,
-        AuthorAuthorId: authorName,
-      }),
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log("book added");
+    setAuthorAuthorId(authorList.id);
+    console.log("2", AuthorAuthorId);
 
-        setToast(true);
-        setToastColor("success");
-        setToastMessage("Book is added");
-        setTimeout(() => {
-          navigate("/books");
-        }, 2000);
-      })
-      .catch((err) => {
-        // If the PUT returns an error, ...
-        setToast(true);
-        setToastColor("danger");
-        setToastMessage("Some error occurred");
-      });
-    // }, 2000);
+    if (
+      title == "" ||
+      genreElement.id == "" ||
+      authorElement.id == "" ||
+      price == "" ||
+      publicationDate == ""
+    ) {
+      setToast(true);
+      setToastColor("info");
+      setToastMessage("One or many fields are missing. Please provide them");
+    } else {
+      //post
+      setTimeout(() => {
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify({
+            title: title,
+            price: price,
+            publicationDate: publicationDate,
+            genreId: genreElement.id,
+            authorId: authorElement.id,
+          }),
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            console.log("book added");
+
+            setToast(true);
+            setToastColor("success");
+            setToastMessage("Book is added");
+            setTimeout(() => {
+              navigate("/books");
+            }, 2000);
+          })
+          .catch((err) => {
+            // If the PUT returns an error, ...
+            setToast(true);
+            setToastColor("danger");
+            setToastMessage("Some error occurred");
+          });
+      }, 4000);
+    }
   };
 
   return (

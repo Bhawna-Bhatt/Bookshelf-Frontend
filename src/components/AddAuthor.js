@@ -19,31 +19,37 @@ export const AddAuthor = () => {
     //post
     //console.log(name, biography);
 
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        name: name,
-        biography: biography,
-      }),
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log("author added");
-        setToast(true);
-        setToastColor("success");
-        setToastMessage("You have logged in");
-        setTimeout(() => {
-          navigate("/authors");
-        }, 2000);
+    if (name == "") {
+      setToast(true);
+      setToastColor("info");
+      setToastMessage("Author name cannot be empty");
+    } else {
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
+          biography: biography,
+        }),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
       })
-      .catch((err) => {
-        // If the PUT returns an error, ...
-        setToast(true);
-        setToastColor("danger");
-        setToastMessage("Some error occurred");
-        console.log(err);
-      });
+        .then((response) => response.json())
+        .then((json) => {
+          console.log("author added");
+          setToast(true);
+          setToastColor("success");
+          setToastMessage("Author added successfully");
+          setTimeout(() => {
+            navigate("/authors");
+          }, 2000);
+        })
+        .catch((err) => {
+          // If the PUT returns an error, ...
+          setToast(true);
+          setToastColor("danger");
+          setToastMessage("Some error occurred");
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -107,7 +113,7 @@ export const AddAuthor = () => {
         </Form>
         <ToastContainer
           position="top-end"
-          className="p-3"
+          className="p-3 mt-4"
           style={{ zIndex: 1 }}
         >
           <Toast
@@ -115,14 +121,14 @@ export const AddAuthor = () => {
             onClose={() => {
               setToast(false);
             }}
-            delay={1500}
+            delay={3000}
             autohide
             position="top-center"
             className="mt-5 text-white"
             bg={toastColor}
           >
             <Toast.Header>
-              <strong className="me-auto">Hi There!</strong>
+              <strong className="me-auto">Hello admin!</strong>
             </Toast.Header>
             <Toast.Body>{toastMessage}</Toast.Body>
           </Toast>
