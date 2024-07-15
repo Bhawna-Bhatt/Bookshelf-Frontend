@@ -22,11 +22,11 @@ NOTE: This application will NOT include any ability to purchase books.
 
 ## Tech Stack
 
---HTML5 / CSS
--- Javascript
--- Create React App Express/React-Bootstrap
---ORM - Sequelize
---Express
+- HTML5 / CSS
+- Javascript
+- Create React App Express/React-Bootstrap
+- ORM - Sequelize
+- Express
 
 ## how to create the database and inserting sample data
 
@@ -35,56 +35,60 @@ NOTE: This application will NOT include any ability to purchase books.
 ## list of endpoints are as follows
 
 Books:
-GET /books : Retrieve a list of all books
-GET /books/{book_id} : Retrieve details of a specific book
-POST /books : Add a new book
-PUT /books/{book_id} : Update details of an existing book
-DELETE /books/{book_id} : Delete a specific book
+- GET /books : Retrieve a list of all books
+- GET /books/{book_id} : Retrieve details of a specific book
+- POST /books : Add a new book
+- PUT /books/{book_id} : Update details of an existing book
+- DELETE /books/{book_id} : Delete a specific book
 Authors:
-GET /authors : Retrieve a list of all authors
-GET /authors/{author_id} : Retrieve details of a specific author
-POST /authors : Add a new author
-PUT /authors/{author_id} : Update details of an existing author
-DELETE /authors/{author_id} : Delete a specific author
+- GET /authors : Retrieve a list of all authors
+- GET /authors/{author_id} : Retrieve details of a specific author
+- POST /authors : Add a new author
+- PUT /authors/{author_id} : Update details of an existing author
+- DELETE /authors/{author_id} : Delete a specific author
 Genres:
-GET /genres : Retrieve a list of all genres
-GET /genres/{genre_id} : Retrieve details of a specific genre
-POST /genres : Add a new genre
+- GET /genres : Retrieve a list of all genres
+- GET /genres/{genre_id} : Retrieve details of a specific genre
+- POST /genres : Add a new genre
 
 ## source code for the REST API
 
--- is available at backend repository https://github.com/Bhawna-Bhatt/Bookshelf-Backend.git
+- is available at backend repository https://github.com/Bhawna-Bhatt/Bookshelf-Backend.git
 
 Screenshots of the Application
 
 # Login Page
 
-!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/login.jpeg)
+![login](https://github.com/user-attachments/assets/324ae4a2-4e37-4151-ab18-4fb3abd86543)
+
+
 
 #Homepage
 
-! (Front-end/FullStack-Bookstore-Project-Frontend/src/images/homepage.jpeg)
+![homepage](https://github.com/user-attachments/assets/7e092cc3-8175-43ef-9435-1fc71e041f5f)
+
 
 # Book List
 
-!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/booklist.jpeg)
+![booklist](https://github.com/user-attachments/assets/486cd892-972d-4c90-be2a-9b35cc200715)
+
 
 # Book Detail
 
-!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/bookdetail.jpeg)
+![bookdetail](https://github.com/user-attachments/assets/55dbd682-ddad-4b6a-8cb8-178bf2072586)
 
 # Add Book
 
-!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/addbook.jpeg)
+![addbook](https://github.com/user-attachments/assets/e3f9ea2e-6be3-4b51-b9fc-90b3f66ebaba)
+
 
 # Author List
 
-!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/authorlist.jpeg)
+![authorlist](https://github.com/user-attachments/assets/bd16eb67-df2c-4d21-9cb3-ab03117e4875)
 
 # Author Detail
 
-!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/authordetail.jpeg)
-
+![authordetail](https://github.com/user-attachments/assets/2210521e-6c55-4271-95d9-8fd67489c6ca)
 # Add Author
 
-!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/addauthor.jpeg)
+![addauthor](https://github.com/user-attachments/assets/054c799e-6d84-41e4-96b6-ce2a4bcfc392)
