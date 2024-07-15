@@ -75,32 +75,35 @@ export const AddBook = () => {
     console.log("authorname from state", authorName);
 
     setGenreGenreId(genreName);
+    console.log(GenreGenreId);
 
     setAuthorAuthorId(authorName);
+    console.log(AuthorAuthorId);
 
     //post
-
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        title: title,
-        price: price,
-        publicationDate: publicationDate,
-        GenreGenreId: GenreGenreId,
-        AuthorAuthorId: AuthorAuthorId,
-      }),
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log("book added");
-        alert("Book added successfully");
-        //navigate("/books");
+    setTimeout(() => {
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          title: title,
+          price: price,
+          publicationDate: publicationDate,
+          GenreGenreId: GenreGenreId,
+          AuthorAuthorId: AuthorAuthorId,
+        }),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
       })
-      .catch((err) => {
-        // If the PUT returns an error, ...
-        console.log(err);
-      });
+        .then((response) => response.json())
+        .then((json) => {
+          console.log("book added");
+          alert("Book added successfully");
+          //navigate("/books");
+        })
+        .catch((err) => {
+          // If the PUT returns an error, ...
+          console.log(err);
+        });
+    }, 5000);
   };
 
   return (
