@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# Getting Started with Bookshelf-Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Overview
 
-## Available Scripts
+This is Fullstack Project for Returnship Program of Pluralsight.
 
-In the project directory, you can run:
+This is the front-end of full-stack application that allows bookstore employees to internally manage the books carried by a small bookstore.  
+The backend is @ https://github.com/Bhawna-Bhatt/Bookshelf-Backend.git in this same account.
+This repository is for front-end application that allows users to make queries about books that are carried, as well as add/delete/edit data.
+NOTE: This application will NOT include any ability to purchase books.
 
-### `npm start`
+## Steps
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Install Git
+- Install Node.js
+- Clone this repository
+- Navigate to the Project Directory
+- Install depenedencies using **npm install**
+- Start the development server using **npm start**
+- Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Remember -- The backend should also be running on port 4000
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+--HTML5 / CSS
+-- Javascript
+-- Create React App Express/React-Bootstrap
+--ORM - Sequelize
+--Express
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## how to create the database and inserting sample data
 
-### `npm run build`
+- The database has been made with Sequelize ORM and sample data was inserted using BulkCreate method of the same.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## list of endpoints are as follows
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Books:
+GET /books : Retrieve a list of all books
+GET /books/{book_id} : Retrieve details of a specific book
+POST /books : Add a new book
+PUT /books/{book_id} : Update details of an existing book
+DELETE /books/{book_id} : Delete a specific book
+Authors:
+GET /authors : Retrieve a list of all authors
+GET /authors/{author_id} : Retrieve details of a specific author
+POST /authors : Add a new author
+PUT /authors/{author_id} : Update details of an existing author
+DELETE /authors/{author_id} : Delete a specific author
+Genres:
+GET /genres : Retrieve a list of all genres
+GET /genres/{genre_id} : Retrieve details of a specific genre
+POST /genres : Add a new genre
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## source code for the REST API
 
-### `npm run eject`
+-- is available at backend repository https://github.com/Bhawna-Bhatt/Bookshelf-Backend.git
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Screenshots of the Application
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Login Page
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/login.jpeg)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#Homepage
 
-## Learn More
+! (Front-end/FullStack-Bookstore-Project-Frontend/src/images/homepage.jpeg)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Book List
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/booklist.jpeg)
 
-### Code Splitting
+# Book Detail
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/bookdetail.jpeg)
 
-### Analyzing the Bundle Size
+# Add Book
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/addbook.jpeg)
 
-### Making a Progressive Web App
+# Author List
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/authorlist.jpeg)
 
-### Advanced Configuration
+# Author Detail
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/authordetail.jpeg)
 
-### Deployment
+# Add Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+!(Front-end/FullStack-Bookstore-Project-Frontend/src/images/addauthor.jpeg)
