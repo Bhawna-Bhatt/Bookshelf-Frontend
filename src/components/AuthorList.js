@@ -40,9 +40,10 @@ export const AuthorList = () => {
     <>
       <NavbarInside></NavbarInside>
       <div className="container">
-        <h2 className="h2 text-center mt-5 p-4" style={{ color: "#f64b4b" }}>
+        <h2 className="h2 text-center mt-5 p-5" style={{ color: "#f64b4b" }}>
           {" "}
-          Here are all the Authors with us !!
+          <i class="bi bi-person-bounding-box me-4 h1 text-dark"></i>Here are
+          all the Authors with us !!
         </h2>
         <div>
           <Row>

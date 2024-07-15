@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Pic1 from "../images/bookcover.jpeg";
+import Pic1 from "../images/authorImage.jpeg";
 import { Container, Toast, ToastContainer } from "react-bootstrap";
 
 export const AuthorDetail = () => {

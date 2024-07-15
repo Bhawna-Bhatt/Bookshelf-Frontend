@@ -56,10 +56,11 @@ export const BookList = () => {
       <Container className="mt-4 p-5">
         <h2 className="h2 text-center p-3" style={{ color: "#f64b4b" }}>
           {" "}
-          Here are all the Books in Inventory
+          <i className="bi bi-journal-bookmark-fill me-5 h1 text-dark"></i>Here
+          are all the Books in Inventory
         </h2>
 
-        <Row>
+        <Row className="mt-5">
           {book.map((i) => (
             <Card
               style={{

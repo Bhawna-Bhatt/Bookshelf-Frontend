@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import {
   Container,
@@ -33,6 +33,10 @@ export const BookDetail = () => {
   const [toastMessage, setToastMessage] = useState("");
   const [toastColor, setToastColor] = useState("");
 
+  const [genreList, setGenreList] = useState([]);
+  const [authorList, setAuthorList] = useState([]);
+  const [showOptions, setShowOptions] = useState(false);
+
   //Get data specific to a book using book id passed from previous page
   //using state of useLocation
 
@@ -64,12 +68,56 @@ export const BookDetail = () => {
     getBookDetail();
   }, []);
 
+  // get all genres
+
+  const getAllGenres = async () => {
+    console.log("fetching genre");
+
+    try {
+      const response = await fetch("http://localhost:4000/genres");
+
+      if (!response.ok) {
+        throw new Error("Network Response not OK");
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      setGenreList(data);
+    } catch (err) {
+      console.log("Problem with Fetch operation: ", err);
+    }
+  };
+
+  // get all authors
+
+  const getAllAuthors = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/authors");
+
+      if (!response.ok) {
+        throw new Error("Network Response not OK");
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      setAuthorList(data);
+    } catch (err) {
+      console.log("Problem with Fetch operation: ", err);
+    }
+  };
+
   // Make the Book field editable
 
   const editBook = () => {
     console.log(!disableInput);
 
     setDisableInput(!disableInput);
+    setShowOptions(!showOptions);
+
+    getAllGenres();
+    getAllAuthors();
   };
 
   console.log("testing", bookDetail);
@@ -100,47 +148,9 @@ export const BookDetail = () => {
     getGenreId();
     getAuthorId();
 
-    // get all genres
-
-    const getAllGenres = async () => {
-      console.log("fetching genre");
-
-      try {
-        const response = await fetch("http://localhost:4000/genres");
-
-        if (!response.ok) {
-          throw new Error("Network Response not OK");
-        }
-
-        const data = await response.json();
-        console.log(data);
-
-        setGenreList(data);
-      } catch (err) {
-        console.log("Problem with Fetch operation: ", err);
-      }
-    };
-
-    // get all authors
-
-    const getAllAuthors = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/authors");
-
-        if (!response.ok) {
-          throw new Error("Network Response not OK");
-        }
-
-        const data = await response.json();
-        console.log(data);
-
-        setAuthorList(data);
-      } catch (err) {
-        console.log("Problem with Fetch operation: ", err);
-      }
-    };
-
     //put
+
+    console.log("authorname for edit", authorName);
 
     fetch(url, {
       method: "PUT",
@@ -148,20 +158,27 @@ export const BookDetail = () => {
         title: title,
         price: price,
         publicationDate: publicationDate,
-        GenreGenreId: GenreGenreId,
-        AuthorAuthorId: AuthorAuthorId,
+        GenreGenreId: genreName,
+        AuthorAuthorId: authorName,
       }),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     })
       .then((response) => response.json())
       .then((json) => {
         console.log("author edited");
-        alert("Author changed successfully");
-        navigate("/books");
+        setToast(true);
+        setToastColor("success");
+        setToastMessage("Book edited successfully");
+        setTimeout(() => {
+          navigate("/books");
+        }, 2000);
       })
       .catch((err) => {
         // If the PUT returns an error, ...
         console.log(err);
+        setToast(true);
+        setToastColor("danger");
+        setToastMessage("Some error occurred");
       });
 
     setDisableInput(!disableInput);
@@ -250,34 +267,89 @@ export const BookDetail = () => {
                       onChange={(e) => setTitle(e.target.value)}
                     />
                   </Form.Group>
-                  <Form.Group className="mt-2">
-                    <Form.Label htmlFor="name">
-                      <b style={{ color: "#f64b4b" }}>Author</b>
-                    </Form.Label>
-                    <Form.Control
-                      id="name"
-                      name="name"
-                      placeholder="Author Name"
-                      type="text"
-                      value={authorName}
-                      disabled={disableInput}
-                      onChange={(e) => setAuthorName(e.target.value)}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mt-2">
-                    <Form.Label htmlFor="name">
-                      <b style={{ color: "#f64b4b" }}>Genre </b>
-                    </Form.Label>
-                    <Form.Control
-                      id="name"
-                      name="name"
-                      placeholder="Genre Name"
-                      type="text"
-                      value={genreName}
-                      disabled={disableInput}
-                      onChange={(e) => setGenreName(e.target.value)}
-                    />
-                  </Form.Group>
+                  {showOptions ? (
+                    <div>
+                      <Form.Group className="mb-3">
+                        <Form.Label className="fw-bold">Author </Form.Label>
+                        <Form.Select
+                          aria-label="Default select example"
+                          onChange={(e) => {
+                            setAuthorName(e.target.value);
+                          }}
+                        >
+                          {" "}
+                          <option>Please select an author</option>
+                          {authorList.map((x) => (
+                            <option value={x.authorId} key={x.authorId}>
+                              {x.name}
+                            </option>
+                          ))}
+                        </Form.Select>
+                        <Link to="/authors/new">
+                          <p className="mt-2">
+                            {" "}
+                            Author not in list? Please click here to add
+                          </p>
+                        </Link>
+                      </Form.Group>
+                    </div>
+                  ) : (
+                    <Form.Group className="mt-2">
+                      <Form.Label htmlFor="name">
+                        <b style={{ color: "#f64b4b" }}>Author</b>
+                      </Form.Label>
+                      <Form.Control
+                        id="name"
+                        name="name"
+                        placeholder="Author Name"
+                        type="text"
+                        value={authorName}
+                        disabled={disableInput}
+                        onChange={(e) => setAuthorName(e.target.value)}
+                      />
+                    </Form.Group>
+                  )}
+                  {showOptions ? (
+                    <div>
+                      <Form.Group className="mb-3">
+                        <Form.Label className="fw-bold">Genre</Form.Label>
+                        <Form.Select
+                          aria-label="Default select example"
+                          onChange={(e) => {
+                            setGenreName(e.target.value);
+                          }}
+                        >
+                          <option>Please select a genre </option>
+                          {genreList.map((x) => (
+                            <option value={x.genreId} key={x.genreId}>
+                              {x.genreName}
+                            </option>
+                          ))}
+                        </Form.Select>
+                        <Link to="/genres">
+                          <p className="mt-2">
+                            {" "}
+                            Genre not in list? Please click here to add
+                          </p>
+                        </Link>
+                      </Form.Group>
+                    </div>
+                  ) : (
+                    <Form.Group className="mt-2">
+                      <Form.Label htmlFor="genre">
+                        <b style={{ color: "#f64b4b" }}>Genre </b>
+                      </Form.Label>
+                      <Form.Control
+                        id="genre"
+                        name="genre"
+                        placeholder="Genre Name"
+                        type="text"
+                        value={genreName}
+                        disabled={disableInput}
+                        onChange={(e) => setGenreName(e.target.value)}
+                      />
+                    </Form.Group>
+                  )}
                   <Form.Group className="mt-2">
                     <Form.Label htmlFor="name">
                       <b style={{ color: "#f64b4b" }}>Publication Date </b>
@@ -285,7 +357,7 @@ export const BookDetail = () => {
                     <Form.Control
                       id="name"
                       name="name"
-                      placeholder="Author Name"
+                      placeholder="Publication Date"
                       type="date"
                       value={publicationDate}
                       disabled={disableInput}
