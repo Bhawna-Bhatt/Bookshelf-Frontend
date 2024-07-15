@@ -5,7 +5,7 @@ import { NavbarInside } from "./NavbarInside";
 import { About } from "./About";
 
 export const HomePage = () => {
-  const [uname, setUName] = useState();
+  const [uname, setUName] = useState("");
 
   useEffect(() => {
     setUName(localStorage.getItem("Username"));
@@ -14,11 +14,19 @@ export const HomePage = () => {
   return (
     <>
       <NavbarInside></NavbarInside>
-      {/* <h3 className="mt-4" style={{ color: "#D97448" }}>
-        Welcome ! {uname}
-      </h3> */}
       <main>
         <HomeCarousel></HomeCarousel>
+        <h4
+          className="mt-1 "
+          style={{
+            color: "#D97448",
+            display: "flex",
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
+          Welcome ! {uname}
+        </h4>
         <About></About>
       </main>
       <Footer></Footer>

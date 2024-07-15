@@ -10,11 +10,16 @@ export const BookDetail = () => {
   const book = location.state;
   const navigate = useNavigate();
   const [disableInput, setDisableInput] = useState(true);
-  const [name, setName] = useState(book.title);
+  const [title, setTitle] = useState(book.title);
   const [genreName, setGenreName] = useState("");
   const [authorName, setAuthorName] = useState("");
 
-  console.log("in book detail", book.bookId);
+  const [price, setPrice] = useState(book.price);
+  const [publicationDate, setPublicationDate] = useState(book.publicationDate);
+  const [GenreGenreId, setGenreGenreId] = useState(0);
+  const [AuthorAuthorId, setAuthorAuthorId] = useState(0);
+
+  const [bookDetail, setBookDetail] = useState({});
 
   //Get data specific to a book using book id passed from previous page
   //using state of useLocation
@@ -31,10 +36,15 @@ export const BookDetail = () => {
         }
 
         const data = await response.json();
-        console.log(data.Author);
-        setName(data.title);
+
+        setBookDetail(data);
+        console.log("book details ", data);
+
+        setTitle(data.title);
         setGenreName(data.Genre.genreName);
         setAuthorName(data.Author.name);
+        setGenreGenreId(data.GenreGenreId);
+        setAuthorAuthorId(data.AuthorAuthorId);
       } catch (err) {
         console.log("Problem with Fetch operation: ", err);
       }
@@ -50,32 +60,59 @@ export const BookDetail = () => {
     setDisableInput(!disableInput);
   };
 
+  console.log("testing", bookDetail);
+  //console.log("1", bookDetail.AuthorAuthorId);
+  //console.log("1:", bookDetail.GenreGenreId);
+  console.log("G", GenreGenreId);
+  console.log("A", AuthorAuthorId);
+
   const saveBook = () => {
     const url = "http://localhost:4000/books/" + book.bookId;
     console.log("in edit handling");
+
+    setTitle(title);
+    setPrice(price);
+    setPublicationDate(publicationDate);
+    console.log("in save", bookDetail.GenreGenreId);
+    console.log("in save", bookDetail.AuthorAuthorId);
+
+    const getGenreId = () => {
+      setGenreGenreId(bookDetail.GenreGenreId);
+      console.log("2", GenreGenreId);
+    };
+
+    const getAuthorId = () => {
+      setAuthorAuthorId(bookDetail.AuthorAuthorId);
+      console.log("2:", AuthorAuthorId);
+    };
+    getGenreId();
+    getAuthorId();
+
     //put
-    //console.log(name, biography);
 
-    // fetch(url, {
-    //   method: "PUT",
-    //   body: JSON.stringify({
-    //     name: name,
-    //     biography: biography,
-    //   }),
-    //   headers: { "Content-type": "application/json; charset=UTF-8" },
-    // })
-    //   .then((response) => response.json())
-    //   .then((json) => {
-    //     console.log("author edited");
-    //     alert("Author changed successfully");
-    // navigate("/books");
-    // })
-    // .catch((err) => {
-    //   // If the PUT returns an error, ...
-    //   console.log(err);
-    // });
+    fetch(url, {
+      method: "PUT",
+      body: JSON.stringify({
+        title: title,
+        price: price,
+        publicationDate: publicationDate,
+        GenreGenreId: GenreGenreId,
+        AuthorAuthorId: AuthorAuthorId,
+      }),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log("author edited");
+        alert("Author changed successfully");
+        navigate("/books");
+      })
+      .catch((err) => {
+        // If the PUT returns an error, ...
+        console.log(err);
+      });
 
-    // setDisableInput(!disableInput);
+    setDisableInput(!disableInput);
   };
 
   const deleteBook = () => {
@@ -145,9 +182,9 @@ export const BookDetail = () => {
                       name="name"
                       placeholder="Book Name"
                       type="text"
-                      value={name}
+                      value={title}
                       disabled={disableInput}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => setTitle(e.target.value)}
                     />
                   </Form.Group>
                   <Form.Group className="mt-2">
@@ -161,7 +198,7 @@ export const BookDetail = () => {
                       type="text"
                       value={authorName}
                       disabled={disableInput}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => setAuthorName(e.target.value)}
                     />
                   </Form.Group>
                   <Form.Group className="mt-2">
@@ -171,11 +208,11 @@ export const BookDetail = () => {
                     <Form.Control
                       id="name"
                       name="name"
-                      placeholder="Author Name"
+                      placeholder="Genre Name"
                       type="text"
                       value={genreName}
                       disabled={disableInput}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => setGenreName(e.target.value)}
                     />
                   </Form.Group>
                   <Form.Group className="mt-2">
@@ -186,10 +223,10 @@ export const BookDetail = () => {
                       id="name"
                       name="name"
                       placeholder="Author Name"
-                      type="text"
-                      value={book.publicationDate}
+                      type="date"
+                      value={publicationDate}
                       disabled={disableInput}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => setPublicationDate(e.target.value)}
                     />
                   </Form.Group>
                   <Form.Group className="mt-2 mb-3">
@@ -201,9 +238,9 @@ export const BookDetail = () => {
                       name="name"
                       placeholder="Price"
                       type="text"
-                      value={book.price}
+                      value={price}
                       disabled={disableInput}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => setPrice(e.target.value)}
                     />
                   </Form.Group>{" "}
                 </Container>
