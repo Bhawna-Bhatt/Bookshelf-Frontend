@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { NavbarInside } from "./NavbarInside";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Toast, ToastContainer } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
 export const AddAuthor = () => {
   const [name, setName] = useState("");
   const [biography, setBiography] = useState("");
   const navigate = useNavigate();
+
+  const [toast, setToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastColor, setToastColor] = useState("");
 
   const addAuthor = () => {
     const url = "http://localhost:4000/authors";
@@ -26,11 +30,18 @@ export const AddAuthor = () => {
       .then((response) => response.json())
       .then((json) => {
         console.log("author added");
-        alert("Author added successfully");
-        navigate("/authors");
+        setToast(true);
+        setToastColor("success");
+        setToastMessage("You have logged in");
+        setTimeout(() => {
+          navigate("/authors");
+        }, 2000);
       })
       .catch((err) => {
         // If the PUT returns an error, ...
+        setToast(true);
+        setToastColor("danger");
+        setToastMessage("Some error occurred");
         console.log(err);
       });
   };
@@ -59,7 +70,7 @@ export const AddAuthor = () => {
         }}
       >
         <Form>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3">
             <Form.Label className="mt-3">
               <b style={{ color: "#f64b4b" }}>Author Name</b>
             </Form.Label>
@@ -71,7 +82,7 @@ export const AddAuthor = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3">
             <Form.Label className="mt-3">
               <b style={{ color: "#f64b4b" }}>Biography</b>
             </Form.Label>
@@ -94,6 +105,28 @@ export const AddAuthor = () => {
             </Button>
           </Form.Group>
         </Form>
+        <ToastContainer
+          position="top-end"
+          className="p-3"
+          style={{ zIndex: 1 }}
+        >
+          <Toast
+            show={toast}
+            onClose={() => {
+              setToast(false);
+            }}
+            delay={1500}
+            autohide
+            position="top-center"
+            className="mt-5 text-white"
+            bg={toastColor}
+          >
+            <Toast.Header>
+              <strong className="me-auto">Hi There!</strong>
+            </Toast.Header>
+            <Toast.Body>{toastMessage}</Toast.Body>
+          </Toast>
+        </ToastContainer>
       </Container>
     </>
   );

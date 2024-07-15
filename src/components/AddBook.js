@@ -4,7 +4,7 @@ import { Form, Button } from "react-bootstrap";
 
 import { Navigate, useNavigate } from "react-router-dom";
 import { NavbarInside } from "./NavbarInside";
-import { Container } from "react-bootstrap";
+import { Container, Toast, ToastContainer } from "react-bootstrap";
 
 export const AddBook = () => {
   const [title, setTitle] = useState("");
@@ -17,6 +17,10 @@ export const AddBook = () => {
   const [authorName, setAuthorName] = useState("");
   const [genreList, setGenreList] = useState([]);
   const [authorList, setAuthorList] = useState([]);
+
+  const [toast, setToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastColor, setToastColor] = useState("");
 
   const navigate = useNavigate();
 
@@ -81,29 +85,36 @@ export const AddBook = () => {
     console.log(AuthorAuthorId);
 
     //post
-    setTimeout(() => {
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-          title: title,
-          price: price,
-          publicationDate: publicationDate,
-          GenreGenreId: GenreGenreId,
-          AuthorAuthorId: AuthorAuthorId,
-        }),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
+    // setTimeout(() => {
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        title: title,
+        price: price,
+        publicationDate: publicationDate,
+        GenreGenreId: genreName,
+        AuthorAuthorId: authorName,
+      }),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log("book added");
+
+        setToast(true);
+        setToastColor("success");
+        setToastMessage("Book is added");
+        setTimeout(() => {
+          navigate("/books");
+        }, 2000);
       })
-        .then((response) => response.json())
-        .then((json) => {
-          console.log("book added");
-          alert("Book added successfully");
-          //navigate("/books");
-        })
-        .catch((err) => {
-          // If the PUT returns an error, ...
-          console.log(err);
-        });
-    }, 5000);
+      .catch((err) => {
+        // If the PUT returns an error, ...
+        setToast(true);
+        setToastColor("danger");
+        setToastMessage("Some error occurred");
+      });
+    // }, 2000);
   };
 
   return (
@@ -218,6 +229,28 @@ export const AddBook = () => {
             Add Book
           </Button>
         </Form>
+        <ToastContainer
+          position="top-end"
+          className="p-3 mt-4"
+          style={{ zIndex: 1 }}
+        >
+          <Toast
+            show={toast}
+            onClose={() => {
+              setToast(false);
+            }}
+            delay={1500}
+            autohide
+            position="top-center"
+            className="mt-5 text-white"
+            bg={toastColor}
+          >
+            <Toast.Header>
+              <strong className="me-auto">Hi There!</strong>
+            </Toast.Header>
+            <Toast.Body>{toastMessage}</Toast.Body>
+          </Toast>
+        </ToastContainer>
       </Container>
     </>
   );

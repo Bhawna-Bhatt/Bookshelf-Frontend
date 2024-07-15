@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Pic1 from "../images/bookcover.jpeg";
-import { Container } from "react-bootstrap";
+import { Container, Toast, ToastContainer } from "react-bootstrap";
 
 export const AuthorDetail = () => {
   const location = useLocation();
@@ -15,6 +15,10 @@ export const AuthorDetail = () => {
   const [disableInput, setDisableInput] = useState(true);
   const [name, setName] = useState(author.name);
   const [biography, setBiography] = useState(author.biography);
+
+  const [toast, setToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastColor, setToastColor] = useState("");
 
   console.log("in component", author);
 
@@ -41,12 +45,20 @@ export const AuthorDetail = () => {
       .then((response) => response.json())
       .then((json) => {
         console.log("author edited");
-        alert("Author changed successfully");
-        navigate(-1);
+        setToast(true);
+        setToastColor("success");
+        setToastMessage("Author details edited successfully.");
+        setDisableInput(!disableInput);
+        setTimeout(() => {
+          navigate("/authors");
+        }, 2000);
       })
       .catch((err) => {
         // If the PUT returns an error, ...
         console.log(err);
+        setToast(true);
+        setToastColor("danger");
+        setToastMessage("Some error occurred.");
       });
 
     setDisableInput(!disableInput);
@@ -55,20 +67,34 @@ export const AuthorDetail = () => {
   const deleteAuthor = () => {
     console.log("in delete handle click");
     const url = "http://localhost:4000/authors/" + author.authorId;
+
     // send DELETE request w/ id as part of URL
     fetch(url, {
       method: "DELETE",
     })
-      .then((response) => response.json())
-      .then((json) => {
-        // If the DELETE is successful, display a message
-        alert("Author deleted");
-        navigate(-1);
+      .then((response) => {
+        console.log(response);
       })
+      .then((data) => {
+        console.log("data", data);
+        // If the DELETE is successful, display a message
+        setToast(true);
+        setToastColor("success");
+        setToastMessage("Author deleted successfully.");
+        setTimeout(() => {
+          navigate("/authors");
+        }, 2000);
+      })
+
       .catch((err) => {
         // If the DELETE returns an error, display a message
-        alert("Unexpected error.", err);
+        setToast(true);
+        setToastColor("danger");
+        setToastMessage("Some error occurred.");
         console.log(err);
+        setTimeout(() => {
+          navigate("/authors");
+        }, 2000);
       });
   };
 
@@ -148,6 +174,28 @@ export const AuthorDetail = () => {
             </Button>
           </Col>
         </Row>
+        <ToastContainer
+          position="top-end"
+          className=" mt-5 p-3"
+          style={{ zIndex: 1 }}
+        >
+          <Toast
+            show={toast}
+            onClose={() => {
+              setToast(false);
+            }}
+            delay={1500}
+            autohide
+            position="top-center"
+            className="mt-5 text-white"
+            bg={toastColor}
+          >
+            <Toast.Header>
+              <strong className="me-auto">Hi There!</strong>
+            </Toast.Header>
+            <Toast.Body>{toastMessage}</Toast.Body>
+          </Toast>
+        </ToastContainer>
       </Container>
     </>
   );

@@ -121,7 +121,7 @@ export const Login = () => {
           onClose={() => {
             setToast(false);
           }}
-          delay={2000}
+          delay={1500}
           autohide
           position="top-center"
           className="mt-5 text-white"
